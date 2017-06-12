@@ -14,7 +14,7 @@ public class Main {
 	static Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
 		    cursorImg, new Point(0, 0), "blank cursor");
 	// k is for constant as this will be the constant value used to keep everything proportional
-	public static int HEIGHT = (int) screenSize.getHeight(), WIDTH = HEIGHT * 16 / 9, k = (int)(HEIGHT / 10.8);
+	public static int HEIGHT = (int) screenSize.getHeight(), WIDTH = HEIGHT * 16 / 9;
 	public static boolean decoration = true, displayFPS = false;
 	public static GameState state = GameState.MAIN_MENU;
 	static JFrame f = new JFrame(NAME);
@@ -27,7 +27,7 @@ public class Main {
 	
 	public static void createWindow() {
 		ImageIcon g = new ImageIcon(Reader.loadBufferedImage("/menu/icon.png"));
-		s = new Display(WIDTH, HEIGHT, k);
+		s = new Display(WIDTH, HEIGHT);
 
 		f.setUndecorated(decoration);
 		f.add(s);

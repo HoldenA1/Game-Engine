@@ -2,34 +2,40 @@ package tech.hackerlife.game;
 
 import java.awt.*;
 import tech.hackerlife.game.entity.mob.Player;
+import tech.hackerlife.game.entity.mob.Turtle;
 import tech.hackerlife.game.util.*;
 import tech.hackerlife.game.world.*;
 
 public class Game {
 
 	public static int tileSize;
-	public static Point mapOrigin, spawn = new Point(0, 0);
+	public static Point mapOrigin;
 	static long time = System.currentTimeMillis(), dTime;
-	public static int counter = 0, fps = 0, speed;
+	public static int counter = 0, fps = 0, playerSpeed;
 	static Level level;
 	static Player player;
+	static Turtle turtle;
 
 	public static void init() {
-		level = new Level();
 		tileSize = (int) (Main.HEIGHT / 9);
+		Point spawn = new Point(10 * tileSize, 7 * tileSize);
+		level = new Level();
 		player = new Player(spawn);
+		turtle = new Turtle();
 		mapOrigin = new Point(spawn);
-		speed = (int)(Main.k * 0.037);
+		playerSpeed = (int)(Main.HEIGHT / 200);
 	}
 
-	public static void update(Graphics g, int width, int height, int k) {
+	public static void update(Graphics g, int width, int height) {
 		Keyboard.update();
 		
-		player.update(mapOrigin, tileSize, speed, g);
+		player.update(mapOrigin);
 
 		level.update(g, tileSize, mapOrigin);
 		
-		player.render(g, tileSize);
+		player.render(g);
+		
+		turtle.update(g);
 		
 		if (Main.displayFPS) fpsCounter(g);
 	}
