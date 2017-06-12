@@ -10,13 +10,12 @@ public class Display extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	Timer tm = new Timer(16, this);
 
-	int width, height, k;
+	int width, height;
 	Color textColor = new Color(0, 0, 0);
 
-	public Display(int _width, int _height, int _k) {
+	public Display(int _width, int _height) {
 		this.width = _width;
 		this.height = _height;
-		this.k = _k;
 		
 		tm.start();
 	}
@@ -31,7 +30,7 @@ public class Display extends JPanel implements ActionListener {
 				break;
 			case GAME:
 				setBackground(new Color(32, 32, 32));
-				Game.update(g, width, height, k);
+				Game.update(g, width, height);
 				break;
 			}
 		} catch (Exception e) {
