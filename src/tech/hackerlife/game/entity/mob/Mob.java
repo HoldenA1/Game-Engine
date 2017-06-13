@@ -5,6 +5,7 @@ import tech.hackerlife.game.*;
 import tech.hackerlife.game.entity.*;
 import tech.hackerlife.game.entity.mob.Player.direction;
 import tech.hackerlife.game.util.Reader;
+import tech.hackerlife.game.world.Level;
 
 public abstract class Mob extends Entity {
 	direction dir = direction.DOWN;
@@ -97,12 +98,18 @@ public abstract class Mob extends Entity {
 			translate(0, ya);
 			return;
 		}
-		pos.x += xa;
-		pos.y += ya;
-//		if (!collision(xa, ya)) {
-//			x += xa;
-//			y += ya;
-//		}
+		if (!collision(xa, ya)) {
+			pos.x += xa;
+			pos.y += ya;
+		}
+	}
+	
+	public boolean collision(int xa, int ya) {
+		if (Level.getTileAtLocation(xa + pos.x, ya + pos.y).solid()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public void render(Graphics g) {

@@ -13,7 +13,6 @@ public class Main {
 	static BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 	static Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
 		    cursorImg, new Point(0, 0), "blank cursor");
-	// k is for constant as this will be the constant value used to keep everything proportional
 	public static int HEIGHT = (int) screenSize.getHeight(), WIDTH = HEIGHT * 16 / 9;
 	public static boolean decoration = true, displayFPS = false;
 	public static GameState state = GameState.MAIN_MENU;

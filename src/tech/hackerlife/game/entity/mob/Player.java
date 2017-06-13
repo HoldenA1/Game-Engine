@@ -31,10 +31,10 @@ public class Player extends Mob {
 		LEFT, RIGHT, UP, DOWN
 	}
 
-	public void update(Point mapOrigin) {
+	public void update() {
 		keyInput();
 		walk(Game.playerSpeed, Keyboard.left, Keyboard.right, Keyboard.up, Keyboard.down);
-		loopMap(mapOrigin);
+		loopMap();
 		Game.playerSpeed = (int)(Main.HEIGHT / 200);;
 	}
 	
@@ -43,7 +43,7 @@ public class Player extends Mob {
 				(Main.HEIGHT / 2) - (Game.tileSize / 2), Game.tileSize, Game.tileSize, null);
 	}
 
-	public void loopMap(Point origin) {
+	public void loopMap() {
 		if (pos.x < 0) {
 			pos.x += (Game.tileSize * Level.map.getWidth());
 		}
