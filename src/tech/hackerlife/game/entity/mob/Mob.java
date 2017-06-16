@@ -104,12 +104,8 @@ public abstract class Mob extends Entity {
 		}
 	}
 	
-	public boolean collision(int xa, int ya) {
-		if (Level.getTileAtLocation(xa + pos.x, ya + pos.y).solid()) {
-			return true;
-		} else {
-			return false;
-		}
+	private boolean collision(int xa, int ya) {
+		return false;
 	}
 	
 	public void render(Graphics g) {

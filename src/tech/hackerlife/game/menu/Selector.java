@@ -1,12 +1,42 @@
 package tech.hackerlife.game.menu;
 
+import java.util.ArrayList;
+
 import tech.hackerlife.game.*;
 
 public class Selector {
 
 	public static int selected = 0;
 	public static boolean resSel = false, optionsMenu = false, mainMenu = true;
-	public static int[] array = ResSelector.getOrderedRes();
+	public static int[] array = getOrderedRes();
+	static ArrayList<Integer> ar = new ArrayList<Integer>();
+	
+	public static int[] getOrderedRes() {
+		ar = new ArrayList<Integer>();
+		ar.add(2160);
+		ar.add(1440);
+		ar.add(1080);
+		ar.add(720);
+		ar.add(640);
+		
+		algorithm();
+		
+		int[] a = new int[ar.size()];
+		for(int i = 0; i < ar.size(); i++) {
+			a[i] = ar.get(i);
+		}
+		return a;
+	}
+	
+	private static void algorithm() {
+		for(int i = 0; i < ar.size(); i++) {
+			if (ar.get(i) == Main.HEIGHT || Main.screenSize.getHeight() < ar.get(i)) {
+				ar.remove(i);
+				algorithm();
+				break;
+			}
+		}
+	}
 
 	public static void up() {
 		selected--;
@@ -96,7 +126,7 @@ public class Selector {
 		if (Main.HEIGHT != array[index]) {
 			Main.HEIGHT = array[index];
 			Main.WIDTH = Main.HEIGHT * 16 / 9;
-			array = ResSelector.getOrderedRes();
+			array = getOrderedRes();
 			Main.destroyWindow();
 			Main.createWindow();
 		}

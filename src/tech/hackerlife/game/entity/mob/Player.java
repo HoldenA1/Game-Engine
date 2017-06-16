@@ -35,25 +35,23 @@ public class Player extends Mob {
 		keyInput();
 		walk(Game.playerSpeed, Keyboard.left, Keyboard.right, Keyboard.up, Keyboard.down);
 		loopMap();
-		Game.playerSpeed = (int)(Main.HEIGHT / 200);;
+		Game.playerSpeed = (int)(Main.HEIGHT >> 8);
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(character, (Main.WIDTH / 2) - (Game.tileSize / 2),
-				(Main.HEIGHT / 2) - (Game.tileSize / 2), Game.tileSize, Game.tileSize, null);
+		g.drawImage(character, (Main.WIDTH >> 1) - (Game.tileSize >> 1),
+				(Main.HEIGHT >> 1) - (Game.tileSize >> 1), Game.tileSize, Game.tileSize, null);
 	}
 
 	public void loopMap() {
 		if (pos.x < 0) {
 			pos.x += (Game.tileSize * Level.map.getWidth());
-		}
-		if (pos.x > (Game.tileSize * Level.map.getWidth())) {
+		} else if (pos.x > (Game.tileSize * Level.map.getWidth())) {
 			pos.x -= (Game.tileSize * Level.map.getWidth());
 		}
 		if (pos.y < 0) {
 			pos.y += (Game.tileSize * Level.map.getHeight());
-		}
-		if (pos.y > (Game.tileSize * Level.map.getHeight())) {
+		} else if (pos.y > (Game.tileSize * Level.map.getHeight())) {
 			pos.y -= (Game.tileSize * Level.map.getHeight());
 		}
 		
@@ -70,14 +68,15 @@ public class Player extends Mob {
 		
 		if (Keyboard.escape) {
 			Keyboard.keys[KeyEvent.VK_ESCAPE] = false;
+			Main.f.getContentPane().setCursor(null);
 			Main.state = GameState.MAIN_MENU;
 		}
 		if (Keyboard.interact);
 	}
 	
 	public void setOrigin() {
-		Game.mapOrigin.x = -(pos.x - (Main.WIDTH / 2) - (Game.tileSize / 2));
-		Game.mapOrigin.y = -(pos.y - (Main.HEIGHT / 2) - (Game.tileSize / 2));
+		Game.mapOrigin.x = -(pos.x - (Main.WIDTH >> 1) - (Game.tileSize >> 1));
+		Game.mapOrigin.y = -(pos.y - (Main.HEIGHT >> 1) - (Game.tileSize >> 1));
 	}
 
 }

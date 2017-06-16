@@ -39,23 +39,12 @@ public class Level {
 
 	public static Tile getTileAtLocation(int x, int y) {
 		if (x < 0) x += map.getWidth() * Game.tileSize;
+		else if (x > 0) x -= map.getWidth() * Game.tileSize;
 		if (y < 0) y += map.getHeight() * Game.tileSize;
+		else if (y > 0) y -= map.getHeight() * Game.tileSize;
 		int xa = x / Game.tileSize;
 		int ya = y / Game.tileSize;
-		try {
-			return tiles[xa][ya];
-		} catch (Exception e) {
-			if (xa <= 0) {
-				xa += map.getWidth() - 1;
-			} else if (xa > map.getWidth() - 1) {
-				xa -= map.getWidth();
-			} if (ya <= 0) {
-				ya += map.getHeight() - 1;
-			} else if (ya > map.getHeight() - 1) {
-				ya -= map.getHeight();
-			}
-			return tiles[xa][ya];
-		}
+		return tiles[xa][ya];
 	}
 
 	public void update(Graphics g, int tileSize, Point origin) {

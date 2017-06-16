@@ -11,12 +11,12 @@ public class Main {
 	public static final String NAME = "Pirate Game";
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	static BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-	static Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+	public static Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
 		    cursorImg, new Point(0, 0), "blank cursor");
-	public static int HEIGHT = (int) screenSize.getHeight(), WIDTH = HEIGHT * 16 / 9;
+	public static int HEIGHT = (int) screenSize.getHeight(), WIDTH = (HEIGHT << 4) / 9;
 	public static boolean decoration = true, displayFPS = false;
 	public static GameState state = GameState.MAIN_MENU;
-	static JFrame f = new JFrame(NAME);
+	public static JFrame f = new JFrame(NAME);
 	static Display s;
 	
 	public static void main(String[] args) {
@@ -35,7 +35,6 @@ public class Main {
 		s.requestFocusInWindow();
 		f.setVisible(true);
 		f.setSize(WIDTH, HEIGHT);
-		f.getContentPane().setCursor(blankCursor);
 		f.setLocationRelativeTo(null);
 		f.setResizable(false);
 		f.setIconImage(g.getImage());
@@ -50,7 +49,7 @@ public class Main {
 	public static void init() {
 		try {
 			Reader.parseSettings();
-			WIDTH = HEIGHT * 16 / 9;
+			WIDTH = (HEIGHT << 4) / 9;
 		} catch (Exception e) {
 			destroyWindow();
 			e.printStackTrace();
