@@ -14,10 +14,11 @@ public class Main {
 	public static Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
 		    cursorImg, new Point(0, 0), "blank cursor");
 	public static int HEIGHT = (int) screenSize.getHeight(), WIDTH = (HEIGHT << 4) / 9;
+	public static double scale;
 	public static boolean decoration = true, displayFPS = false;
 	public static GameState state = GameState.MAIN_MENU;
 	public static JFrame f = new JFrame(NAME);
-	static Display s;
+	public static Display s;
 	
 	public static void main(String[] args) {
 		init();
@@ -27,10 +28,13 @@ public class Main {
 	public static void createWindow() {
 		ImageIcon g = new ImageIcon(Reader.loadBufferedImage("/menu/icon.png"));
 		s = new Display(WIDTH, HEIGHT);
+		scale = HEIGHT / 1440.0;
 
 		f.setUndecorated(decoration);
 		f.add(s);
 		s.addKeyListener(new Keyboard());
+		s.addMouseListener(new Mouse());
+		s.addMouseMotionListener(new Mouse());
 		s.setFocusable(true);
 		s.requestFocusInWindow();
 		f.setVisible(true);
