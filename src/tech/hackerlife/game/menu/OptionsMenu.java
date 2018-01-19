@@ -13,7 +13,7 @@ public class OptionsMenu extends MainMenuGUI {
 	static Color boxColor = new Color(color, color, color, 100);
 	static Image check = Reader.loadBufferedImage("/menu/check.png");
 	
-	public static void options(Graphics g, Color textColor) {
+	public static void render(Graphics g, Color textColor) {
 		// draws option settings
 		draw(g, "WINDOWED: ", xa, winy);
 		draw(g, "FPS COUNTER: ", xa, fpsy);

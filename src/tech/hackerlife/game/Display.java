@@ -1,49 +1,51 @@
 package tech.hackerlife.game;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import tech.hackerlife.game.menu.*;
-import tech.hackerlife.game.util.Logger;
 
-public class Display extends JPanel implements ActionListener {
+public class Display extends JPanel {
 	private static final long serialVersionUID = 1L;
-	Timer tm = new Timer(16, this);
 
 	int width, height;
-	Color textColor = new Color(0, 0, 0);
+	static int counter = 0, fps = 0;
+	static long time = System.currentTimeMillis(), dTime;
 
 	public Display(int _width, int _height) {
 		this.width = _width;
 		this.height = _height;
-		
-		tm.start();
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		try {
-			switch (Main.state) {
-			case MAIN_MENU:
-				MainMenuGUI.update(g, width, height, textColor);
-				break;
-			case GAME:
-				setBackground(new Color(32, 32, 32));
-				Game.update(g, width, height);
-				break;
-			}
-		} catch (Exception e) {
-			Main.destroyWindow();
-			e.printStackTrace();
-			Logger.logError(e);
-			JOptionPane.showMessageDialog(null, "Game Crashed!\nCheck error logs for details", "Error", 0);
-			Main.exitProcedure();
+		
+		switch (Main.state) {
+		case MAIN_MENU:
+			MainMenuGUI.render(g);
+			break;
+		case LOADING:
+			Game.loadingScreen(g);
+			break;
+		case GAME:
+			Game.render(g);
+			break;
 		}
-	}
-
-	public void actionPerformed(ActionEvent e) {
+		
+		if (Main.displayFPS) fpsCounter(g);
+		
 		repaint();
 	}
-
+	
+	public static void fpsCounter(Graphics g) {
+		counter++;
+		dTime = System.currentTimeMillis();
+		if (dTime - time > 1000) {
+			fps = counter;
+			counter = 0;
+			time = System.currentTimeMillis();
+		}
+		g.setFont(new Font("Dialog", Font.BOLD, (Main.HEIGHT >> 4) / 3));
+		g.setColor(Color.yellow);
+		g.drawString("FPS: " + fps, 10, (Main.HEIGHT >> 4) / 3);
+	}
 }

@@ -29,6 +29,8 @@ public class Keyboard implements KeyListener {
 		case GAME:
 			keys[e.getKeyCode()] = true;
 			break;
+		case LOADING:
+			break;
 		}
 		
 	}

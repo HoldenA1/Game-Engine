@@ -6,16 +6,30 @@ import tech.hackerlife.game.util.*;
 
 public class MainMenuGUI {
 	static Image background = Reader.loadBufferedImage("/menu/menuback.png");
+	static Color textColor = new Color(0, 0, 0);
+	public static MenuState menuState = MenuState.TITLE_SCREEN;
 
-	public static void update(Graphics g, int width, int height, Color textColor) {
-		g.drawImage(background, 0, 0, width, height, null);
+	public static void update() {
+		switch (menuState) {
+		case TITLE_SCREEN: 
+			TitleScreen.update();
+			break;
+		case OPTIONS_MENU: break;
+		}
+	}
+	
+	public static void render(Graphics g) {
+		g.drawImage(background, 0, 0, Main.WIDTH, Main.HEIGHT, null);
 		g.setFont(new Font("Dialog", Font.BOLD, (int)(Main.scale * 60)));
 		g.setColor(textColor);
 
-		if (Selector.mainMenu)
-			TitleScreen.display(g);
-		else if (Selector.optionsMenu) {
-			OptionsMenu.options(g, textColor);
+		switch (menuState) {
+		case TITLE_SCREEN: 
+			TitleScreen.render(g);
+			break;
+		case OPTIONS_MENU: 
+			OptionsMenu.render(g, textColor);
+			break;
 		}
 	}
 

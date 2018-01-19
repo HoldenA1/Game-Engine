@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import tech.hackerlife.game.*;
 
 public class Selector {
-
 	public static int selected = 0;
-	public static boolean resSel = false, optionsMenu = false, mainMenu = true;
+	public static boolean resSel = false;
 	public static int[] array = getOrderedRes();
 	static ArrayList<Integer> ar = new ArrayList<Integer>();
 	
@@ -40,61 +39,67 @@ public class Selector {
 
 	public static void up() {
 		selected--;
-		if (mainMenu) {
-			if (selected < 0)
-				selected = 2;
-		} else if (optionsMenu) {
+		switch (MainMenuGUI.menuState) {
+		case TITLE_SCREEN:
+			if (selected < 0) selected = 2;
+			break;
+		case OPTIONS_MENU:
 			if (resSel) {
-				if (selected < 0)
-					selected = array.length;
+				if (selected < 0) selected = array.length;
 			} else {
-				if (selected < 0)
-					selected = 3;
+				if (selected < 0) selected = 3;
 			}
+			break;
 		}
 	}
 
 	public static void down() {
 		selected++;
-		if (mainMenu) {
-			if (selected > 2)
-				selected = 0;
-		} else if (optionsMenu) {
+		switch (MainMenuGUI.menuState) {
+		case TITLE_SCREEN:
+			if (selected > 2) selected = 0;
+			break;
+		case OPTIONS_MENU:
 			if (resSel) {
-				if (selected > array.length)
-					selected = 0;
+				if (selected > array.length) selected = 0;
 			} else {
-				if (selected > 3)
-					selected = 0;
+				if (selected > 3) selected = 0;
 			}
+			break;
 		}
 	}
 
 	public static void back() {
-		if (optionsMenu && resSel) {
-			resSel = false;
-			selected = 0;
-		} else if (optionsMenu) {
-			optionsMenu = false;
-			mainMenu = true;
-			selected = 0;
+		switch (MainMenuGUI.menuState) {
+		case TITLE_SCREEN:
+			if (selected < 0) selected = 2;
+			break;
+		case OPTIONS_MENU:
+			if (resSel) {
+				resSel = false;
+				selected = 0;
+			} else {
+				MainMenuGUI.menuState = MenuState.TITLE_SCREEN;
+				selected = 0;
+			}
+			break;
 		}
 	}
 
 	public static void select() {
-		if (mainMenu) {
+		switch (MainMenuGUI.menuState) {
+		case TITLE_SCREEN:
 			if (selected == 0) {
 				selected = 0;
-				Game.init();
-				Main.state = GameState.GAME;
+				Main.state = GameState.LOADING;
 			} else if (selected == 1) {
 				selected = 0;
-				mainMenu = false;
-				optionsMenu = true;
+				MainMenuGUI.menuState = MenuState.OPTIONS_MENU;
 			} else if (selected == 2) {
 				Main.exitProcedure();
 			}
-		} else if (optionsMenu) {
+			break;
+		case OPTIONS_MENU:
 			if (selected == 0 && !resSel) {
 				selected = 0;
 				resSel = true;
@@ -104,8 +109,7 @@ public class Selector {
 				Main.displayFPS = !Main.displayFPS;
 			} else if (selected == 3 && !resSel) {
 				selected = 0;
-				optionsMenu = false;
-				mainMenu = true;
+				MainMenuGUI.menuState = MenuState.TITLE_SCREEN;
 			} else if (selected == 0 && resSel) {
 				selected = 0;
 				resSel = false;
@@ -118,6 +122,7 @@ public class Selector {
 			} else if (selected == 4 && resSel) {
 				resSelect(3);
 			}
+			break;
 		}
 	}
 
