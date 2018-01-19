@@ -12,6 +12,8 @@ public class Level {
 
 	static SolidTile bricks = new SolidTile("/textures/tiles/brick.png");
 	static DefaultTile grass = new DefaultTile("/textures/tiles/grass.png");
+	static DefaultTile flower = new DefaultTile("/textures/tiles/flower.png");
+	static WaterTile water = new WaterTile("/textures/tiles/water.png");
 
 	static public BufferedImage map = Reader.loadBufferedImage("/textures/map.png");
 	
@@ -33,35 +35,27 @@ public class Level {
 					tiles[z][i / map.getWidth()] = bricks;
 				else if (Integer.toHexString(rgb[i + z]).equals("ff00ff21"))
 					tiles[z][i / map.getWidth()] = grass;
+				else if (Integer.toHexString(rgb[i + z]).equals("ffffff19"))
+					tiles[z][i / map.getWidth()] = flower;
+				else if (Integer.toHexString(rgb[i + z]).equals("ff63c5cf"))
+					tiles[z][i / map.getWidth()] = water;
 			}
 		}
 	}
 
 	public static Tile getTileAtLocation(int x, int y) {
 		if (x < 0) x += map.getWidth() * Game.tileSize;
+		else if (x > map.getWidth() * Game.tileSize) x -= map.getWidth() * Game.tileSize;
 		if (y < 0) y += map.getHeight() * Game.tileSize;
+		else if (y > map.getHeight() * Game.tileSize) y -= map.getHeight() * Game.tileSize;
 		int xa = x / Game.tileSize;
 		int ya = y / Game.tileSize;
-		try {
-			return tiles[xa][ya];
-		} catch (Exception e) {
-			if (xa <= 0) {
-				xa += map.getWidth() - 1;
-			} else if (xa > map.getWidth() - 1) {
-				xa -= map.getWidth();
-			} if (ya <= 0) {
-				ya += map.getHeight() - 1;
-			} else if (ya > map.getHeight() - 1) {
-				ya -= map.getHeight();
-			}
-			return tiles[xa][ya];
-		}
+		if (xa > map.getWidth()-1) xa = map.getWidth()-1;
+		if (ya > map.getHeight()-1) ya = map.getHeight()-1;
+		return tiles[xa][ya];
 	}
 
-	public void update(Graphics g, int tileSize, Point origin) {
-		for (int h = 0; h < entities.size(); h++) {
-			entities.get(h).render(g);
-		}
+	public void render(Graphics g, int tileSize, Point origin) {
 		for (int i = 0; i < map.getWidth() * tileSize; i += tileSize) {
 			int c = i / tileSize;
 			for (int z = 0; z < map.getHeight() * tileSize; z += tileSize) {
