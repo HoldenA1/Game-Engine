@@ -22,7 +22,7 @@ public class Player extends Mob {
 
 	public Player(Point spawn) {
 		super(spawn, characterUp, characterDown, characterLeft, characterRight, characterUpWalk, characterDownWalk, 
-				characterLeft, characterRight, characterUpWalk2, characterDownWalk2, characterLeftWalk, characterRightWalk, (int)(Game.tileSize*0.1875), 0);
+				characterLeft, characterRight, characterUpWalk2, characterDownWalk2, characterLeftWalk, characterRightWalk, 3, 0);
 		dir = direction.DOWN;
 	}
 	

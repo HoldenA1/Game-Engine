@@ -10,9 +10,9 @@ public class Decor extends Entity {
 	
 	public Decor(Point _pos, int _length, int _width, Image _skin) {
 		super(_pos);
-		this.length = _length;
-		this.width = _width;
-		this.skin = _skin;
+		length = _length;
+		width = _width;
+		skin = _skin;
 	}
 	
 	public void render(Graphics g) {

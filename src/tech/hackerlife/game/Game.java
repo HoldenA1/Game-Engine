@@ -1,16 +1,18 @@
 package tech.hackerlife.game;
 
 import java.awt.*;
+import tech.hackerlife.game.entity.decoration.Tree;
 import tech.hackerlife.game.entity.mob.*;
 import tech.hackerlife.game.util.*;
 import tech.hackerlife.game.world.*;
 
 public class Game {
 	public static Point mapOrigin;
-	public static int tuts = 100, playerSpeed, tileSize;
+	public static int tuts = 10, playerSpeed, tileSize;
 	static Level level;
 	static Player player;
 	static Turtle[] turtle = new Turtle[tuts];
+	static Tree palm;
 	
 	public static void init() {
 		Main.f.getContentPane().setCursor(Main.blankCursor); //Erases cursor
@@ -26,8 +28,12 @@ public class Game {
 			turtle[i] = new Turtle();
 		}
 		
+		palm = new Tree(new Point(tileSize*10, tileSize*10));
+		
 		mapOrigin = new Point(spawn);
 		playerSpeed = (int)(Main.scale*5);
+		
+		System.out.println(Level.entities);
 		
 		Main.state = GameState.GAME; //starts the game
 	}

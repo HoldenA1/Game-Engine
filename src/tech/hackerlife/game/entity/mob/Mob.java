@@ -16,8 +16,8 @@ public abstract class Mob extends Entity {
 
 	public Mob(Point _pos, String a, String b, String c, String d, String e, String f, String g, String h, String i, String j, String k, String l, int _xConstraint, int _yConstraint) {
 		super(_pos);
-		this.xConstraint = _xConstraint;
-		this.yConstraint = _yConstraint;
+		xConstraint = (int)(Game.tileSize*(_xConstraint/16.0));
+		yConstraint = (int)(Game.tileSize*(_yConstraint/16.0));
 		up = Reader.loadBufferedImage(a);
 		down = Reader.loadBufferedImage(b);
 		left = Reader.loadBufferedImage(c);
@@ -125,17 +125,17 @@ public abstract class Mob extends Entity {
 		if (ya != 0) {
 			if (ya < 0) {
 				if (Level.getTileAtLocation(pos.x + xConstraint, pos.y + ya + yConstraint).solid()) return true;
-				if (Level.getTileAtLocation(pos.x + Game.tileSize-1 - xConstraint, pos.y + ya - yConstraint).solid()) return true;
+				if (Level.getTileAtLocation(pos.x + Game.tileSize-1 - xConstraint, pos.y + ya + yConstraint).solid()) return true;
 			} else {
-				if (Level.getTileAtLocation(pos.x + xConstraint, pos.y + ya + Game.tileSize-1 + yConstraint).solid()) return true;
+				if (Level.getTileAtLocation(pos.x + xConstraint, pos.y + ya + Game.tileSize-1 - yConstraint).solid()) return true;
 				if (Level.getTileAtLocation(pos.x + Game.tileSize-1 - xConstraint, pos.y + ya + Game.tileSize-1 - yConstraint).solid()) return true;
 			}
 		} else {
 			if (xa < 0) {
 				if (Level.getTileAtLocation(pos.x + xa + xConstraint, pos.y + yConstraint).solid()) return true;
-				if (Level.getTileAtLocation(pos.x + xa + xConstraint, pos.y + Game.tileSize-1 + yConstraint).solid()) return true;
+				if (Level.getTileAtLocation(pos.x + xa + xConstraint, pos.y + Game.tileSize-1 - yConstraint).solid()) return true;
 			} else {
-				if (Level.getTileAtLocation(pos.x + xa + Game.tileSize-1 - xConstraint, pos.y - yConstraint).solid()) return true;
+				if (Level.getTileAtLocation(pos.x + xa + Game.tileSize-1 - xConstraint, pos.y + yConstraint).solid()) return true;
 				if (Level.getTileAtLocation(pos.x + xa + Game.tileSize-1 - xConstraint, pos.y + Game.tileSize-1 - yConstraint).solid()) return true;
 			}
 		}

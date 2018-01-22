@@ -7,7 +7,7 @@ public abstract class Entity {
 	protected Point pos;
 	
 	public Entity(Point _pos) {
-		this.pos = _pos;
+		pos = _pos;
 		add();
 	}
 	

@@ -6,7 +6,7 @@ import tech.hackerlife.game.util.Reader;
 public class Tree extends Decor {
 	
 	public Tree(Point pos) {
-		super(pos, 1, 2, Reader.loadBufferedImage("/textures/tree/palm.png"));
+		super(pos, 1, 2, Reader.loadBufferedImage("/textures/entities/tree/palm.png"));
 	}
 
 }
