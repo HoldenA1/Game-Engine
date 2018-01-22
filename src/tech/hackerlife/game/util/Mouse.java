@@ -1,10 +1,6 @@
 package tech.hackerlife.game.util;
 
 import java.awt.event.*;
-
-import tech.hackerlife.game.Game;
-import tech.hackerlife.game.GameState;
-import tech.hackerlife.game.Main;
 import tech.hackerlife.game.menu.Selector;
 
 public class Mouse implements MouseListener, MouseMotionListener{

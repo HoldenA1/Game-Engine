@@ -10,11 +10,8 @@ public class MainMenuGUI {
 	public static MenuState menuState = MenuState.TITLE_SCREEN;
 
 	public static void update() {
-		switch (menuState) {
-		case TITLE_SCREEN: 
+		if (menuState == MenuState.TITLE_SCREEN) {
 			TitleScreen.update();
-			break;
-		case OPTIONS_MENU: break;
 		}
 	}
 	
@@ -22,14 +19,11 @@ public class MainMenuGUI {
 		g.drawImage(background, 0, 0, Main.WIDTH, Main.HEIGHT, null);
 		g.setFont(new Font("Dialog", Font.BOLD, (int)(Main.scale * 60)));
 		g.setColor(textColor);
-
-		switch (menuState) {
-		case TITLE_SCREEN: 
+		
+		if (menuState == MenuState.TITLE_SCREEN) {
 			TitleScreen.render(g);
-			break;
-		case OPTIONS_MENU: 
+		} else if (menuState == MenuState.OPTIONS_MENU) {
 			OptionsMenu.render(g, textColor);
-			break;
 		}
 	}
 

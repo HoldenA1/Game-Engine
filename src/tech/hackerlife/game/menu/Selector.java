@@ -9,7 +9,7 @@ public class Selector {
 	public static boolean resSel = false;
 	public static int[] array = getOrderedRes();
 	static ArrayList<Integer> ar = new ArrayList<Integer>();
-	
+
 	public static int[] getOrderedRes() {
 		ar = new ArrayList<Integer>();
 		ar.add(2160);
@@ -17,18 +17,18 @@ public class Selector {
 		ar.add(1080);
 		ar.add(720);
 		ar.add(640);
-		
+
 		algorithm();
-		
+
 		int[] a = new int[ar.size()];
-		for(int i = 0; i < ar.size(); i++) {
+		for (int i = 0; i < ar.size(); i++) {
 			a[i] = ar.get(i);
 		}
 		return a;
 	}
-	
+
 	private static void algorithm() {
-		for(int i = 0; i < ar.size(); i++) {
+		for (int i = 0; i < ar.size(); i++) {
 			if (ar.get(i) == Main.HEIGHT || Main.screenSize.getHeight() < ar.get(i)) {
 				ar.remove(i);
 				algorithm();
@@ -41,13 +41,16 @@ public class Selector {
 		selected--;
 		switch (MainMenuGUI.menuState) {
 		case TITLE_SCREEN:
-			if (selected < 0) selected = 2;
+			if (selected < 0)
+				selected = 2;
 			break;
 		case OPTIONS_MENU:
 			if (resSel) {
-				if (selected < 0) selected = array.length;
+				if (selected < 0)
+					selected = array.length;
 			} else {
-				if (selected < 0) selected = 3;
+				if (selected < 0)
+					selected = 3;
 			}
 			break;
 		}
@@ -57,13 +60,16 @@ public class Selector {
 		selected++;
 		switch (MainMenuGUI.menuState) {
 		case TITLE_SCREEN:
-			if (selected > 2) selected = 0;
+			if (selected > 2)
+				selected = 0;
 			break;
 		case OPTIONS_MENU:
 			if (resSel) {
-				if (selected > array.length) selected = 0;
+				if (selected > array.length)
+					selected = 0;
 			} else {
-				if (selected > 3) selected = 0;
+				if (selected > 3)
+					selected = 0;
 			}
 			break;
 		}
@@ -72,7 +78,8 @@ public class Selector {
 	public static void back() {
 		switch (MainMenuGUI.menuState) {
 		case TITLE_SCREEN:
-			if (selected < 0) selected = 2;
+			if (selected < 0)
+				selected = 2;
 			break;
 		case OPTIONS_MENU:
 			if (resSel) {
